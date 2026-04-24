@@ -1,0 +1,661 @@
+/**
+ * @name midnight (background)
+ * @description a dark, customizable discord theme.
+ * @author refact0r
+ * @version 2.1.1
+ * @invite nz87hXyvcy
+ * @website https://github.com/refact0r/midnight-discord
+ * @source https://github.com/refact0r/midnight-discord/blob/master/themes/midnight.theme.css
+ * @authorId 508863359777505290
+ * @authorLink https://www.refact0r.dev
+*/
+
+/* import theme modules */
+@import url('https://refact0r.github.io/midnight-discord/build/midnight.css');
+
+body {
+    /* font options */
+    --font: 'figtree'; /* change to '' for default discord font */
+    --code-font: ''; /* change to '' for default discord font */
+    font-weight: 400; /* normal text font weight. DOES NOT AFFECT BOLD TEXT */
+
+    /* sizes */
+    --gap: 5px; /* spacing between panels */
+    --divider-thickness: 4px; /* thickness of unread messages divider and highlighted message borders */
+    --border-thickness: 2px; /* thickness of borders around main panels. DOES NOT AFFECT OTHER BORDERS */
+
+    /* animation/transition options */
+    --animations: on; /* off: disable animations/transitions, on: enable animations/transitions */
+    --list-item-transition: 0.2s ease; /* transition for list items */
+    --dms-icon-svg-transition: 0.4s ease; /* transition for the dms icon */
+    --border-hover-transition: 0.2s ease; /* transition for borders when hovered */
+
+    /* top bar options */
+    --top-bar-height:   12px; /* height of the top bar (discord default is 36px, old discord style is 24px, var(--gap) recommended if button position is set to titlebar) */
+    --top-bar-button-position: titlebar; /* off: default position, hide: hide buttons completely, serverlist: move inbox button to server list, titlebar: move inbox button to channel titlebar (will hide title) */
+    --top-bar-title-position: off; /* off: default centered position, hide: hide title completely, left: left align title (like old discord) */
+    --subtle-top-bar-title: off; /* off: default, on: hide the icon and use subtle text color (like old discord) */
+
+    /* window controls */
+    --custom-window-controls: on; /* off: default window controls, on: custom window controls */
+    --window-control-size: 14px; /* size of custom window controls */
+
+    /* dms button options */
+    --custom-dms-icon: custom; /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
+    --dms-icon-svg-url: url('https://refact0r.github.io/midnight-discord/assets/Font_Awesome_5_solid_moon.svg'); /* icon svg url. MUST BE A SVG. */
+    --dms-icon-svg-size: 90%; /* size of the svg (css mask-size property) */
+    --dms-icon-color-before: var(--icon-subtle); /* normal icon color */
+    --dms-icon-color-after: var(--white); /* icon color when button is hovered/selected */
+    --custom-dms-background: off; /* off to disable, image to use a background image (must set url variable below), color to use a custom color/gradient */
+    --dms-background-image-url: url(''); /* url of the background image */
+    --dms-background-image-size: cover; /* size of the background image (css background-size property) */
+    --dms-background-color: linear-gradient(70deg, var(--blue-2), var(--purple-2), var(--red-2)); /* fixed color/gradient (css background property) */
+
+    /* background image options */
+    --background-image: on; /* off: no background image, on: enable background image (must set url variable below) */
+    --background-image-url: url('https://i.ibb.co/fz8kWQ4b/pokemon-emerald-waterfall-wallpaperwaves-com-1.gif'); /* url of the background image */
+
+    /* transparency/blur options */
+    /* NOTE: TO USE TRANSPARENCY/BLUR, YOU MUST HAVE TRANSPARENT BG COLORS. FOR EXAMPLE: --bg-4: hsla(220, 15%, 10%, 0.7); */
+    --transparency-tweaks: on; /* off: no changes, on: remove some elements for better transparency */
+    --remove-bg-layer: off; /* off: no changes, on: remove the base --bg-3 layer for use with window transparency (WILL OVERRIDE BACKGROUND IMAGE) */
+    --panel-blur: on; /* off: no changes, on: blur the background of panels */
+    --blur-amount: 3px; /* amount of blur */
+    --bg-floating: hsla(220, 15%, 13%, 0.9); /* set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
+
+    /* chatbar options */
+    --custom-chatbar: separated; /* off: default chatbar, separated: chatbar separated from chat */
+    --chatbar-height: 56px; /* height of the chatbar (56px by default, 47px to align with user panel, 56px recommended for separated) */
+
+    /* other options */
+    --small-user-panel: on; /* off: default user panel, on: smaller user panel like in old discord */
+}
+
+/* color options */
+:root {
+    --colors: on; /* off: discord default colors, on: midnight custom colors */
+
+    /* text colors */
+    --text-0: hsla(220, 15%, 10%, 1); /* text on colored elements */
+    --text-1: hsl(220, 45%, 95%); /* other normally white text */
+    --text-2: hsl(220, 25%, 85%); /* headings and important text */
+    --text-3: hsl(220, 20%, 70%); /* normal text */
+    --text-4: hsl(220, 15%, 50%); /* icon buttons and channels */
+    --text-5: hsl(220, 15%, 35%); /* muted channels/chats and timestamps */
+
+    /* background and dark colors */
+    --bg-1: hsla(220, 15%, 20%, 0.6); /* dark buttons when clicked */
+    --bg-2: hsla(220, 15%, 16%, 0.6); /* dark buttons */
+    --bg-3: hsla(220, 15%, 13%, 0.6); /* spacing, secondary elements */
+    --bg-4: hsla(220, 15%, 10%, 0.6); /* main background color */
+    --hover: hsla(221, 19%, 40%, 0.1); /* channels and buttons when hovered */
+    --active: hsla(220, 19%, 40%, 0.2); /* channels and buttons when clicked or selected */
+    --active-2: hsla(220, 19%, 40%, 0.3); /* extra state for transparent buttons */
+    --message-hover: hsla(220, 0%, 0%, 0.1); /* messages when hovered */
+
+    /* accent colors */
+    --accent-1: #228f6f; /* links and other accent text */
+    --accent-2: #228f6f; /* small accent elements */
+    --accent-3: #228f6f; /* accent buttons */
+    --accent-4: #067062; /* accent buttons when hovered */
+    --accent-5: #a3ce6e; /* accent buttons when clicked */
+    --accent-new: var(--accent-2); /* stuff that's normally red like mute/deafen buttons */
+    --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent); /* background of messages that mention you */
+    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent); /* background of messages that mention you when hovered */
+    --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent); /* background of messages that reply to you */
+    --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent); /* background of messages that reply to you when hovered */
+
+    /* status indicator colors */
+    --online: var(--green-2); /* change to #40a258 for default */
+    --dnd: var(--red-2); /* change to #d83a41 for default */
+    --idle: var(--yellow-2); /* change to #cc954c for default */
+    --streaming: var(--purple-2); /* change to ##9147ff for default */
+    --offline: var(--text-4); /* change to #82838b for default offline color */
+
+    /* border colors */
+    --border-light: var(--hover); /* general light border color */
+    --border: var(--active); /* general normal border color */
+    --border-hover: var(--active); /* border color of panels when hovered */
+    --button-border: hsl(220, 0%, 100%, 0.1); /* neutral border color of buttons */
+
+    /* base colors */
+    --red-1: oklch(75% 0.12 0);
+    --red-2: oklch(70% 0.12 0);
+    --red-3: oklch(65% 0.12 0);
+    --red-4: oklch(60% 0.12 0);
+    --red-5: oklch(55% 0.12 0);
+
+    --green-1: oklch(75% 0.11 170);
+    --green-2: oklch(70% 0.11 170);
+    --green-3: oklch(65% 0.11 170);
+    --green-4: oklch(60% 0.11 170);
+    --green-5: oklch(55% 0.11 160);
+
+    --blue-1: oklch(75% 0.1 215);
+    --blue-2: oklch(70% 0.1 215);
+    --blue-3: oklch(65% 0.1 215);
+    --blue-4: oklch(60% 0.1 215);
+    --blue-5: oklch(55% 0.1 215);
+
+    --yellow-1: oklch(80% 0.11 90);
+    --yellow-2: oklch(75% 0.11 90);
+    --yellow-3: oklch(70% 0.11 90);
+    --yellow-4: oklch(65% 0.11 90);
+    --yellow-5: oklch(60% 0.11 90);
+
+    --purple-1: oklch(75% 0.11 310);
+    --purple-2: oklch(70% 0.11 310);
+    --purple-3: oklch(65% 0.11 310);
+    --purple-4: oklch(60% 0.11 310);
+    --purple-5: oklch(55% 0.11 310);
+}
+
+/* search bar */
+.search_c322aa > .searchBar_c322aa {
+    width: 32px !important;
+    background: none;
+    border-color: transparent;
+    transition: background .25s ease,
+        width .25s ease,
+        border-color .25s ease;
+}
+
+.search_c322aa > .searchBar_c322aa .DraftEditor-root {
+    padding-right: 3px !important;
+}
+
+.search_c322aa:hover > .searchBar_c322aa,
+.search_c322aa:focus-within > .searchBar_c322aa {
+    width: 244px !important;
+    background: var(--background-gradient-low, var(--input-background-default));
+    border-color: var(--input-border-default);
+    transition: all .4s ease;
+}
+
+.search_c322aa > .searchBar_c322aa .icon_c322aa {
+    margin-right: 7px;
+}
+
+.search__49676 {
+    margin: 0 !important;
+}
+
+/* BORDER AREA EXPERIMENTAL UNDERNEATH */
+
+/* ############## */
+/* Coloured Icons */
+/* ############## */
+
+/* ------------- */
+/* MESSAGE HOVER */
+/* ------------- */
+
+[aria-label="Copy Message ID"] .icon_f84418 { color: #dd8b42; }
+/* [aria-label="Copy Link"] .icon_f84418 { color: #3498DB; } */
+/* [aria-label="Mark Unread"] .icon_f84418 { color: #1ABC9C; } */
+/* [aria-label="Pin Message"] .icon_f84418 { color: #d175bd; } */
+/* [aria-label="Create Thread"] .icon_f84418 { color: #9B59B6; } */
+/* [aria-label="Hide Media"] .icon_f84418 { color: #e5292c; } */
+/* [aria-label="Translate"] .icon_f84418 { color: #e5292c; } */
+/* [aria-label="Jump to Reply"] .vc-trans-icon { display: none; } */
+[aria-label="Add Reaction"] .icon_f84418 { color: #E3AC4D; }
+[aria-label="Reply"] .icon_f84418 { color: #34A853; }
+/* [aria-label="Edit"] .icon_f84418 { color: #4285F4; } */
+[aria-label="Forward"] .icon_f84418 { color: #4285F4; }
+/* [aria-label="Delete"] .icon_f84418 { color: #e8474a; } */
+
+/* COPY LINK */
+[aria-label="Copy Link"] [d="M16.32 14.72a1 1 0 0 1 0-1.41l2.51-2.51a3.98 3.98 0 0 0-5.62-5.63l-2.52 2.51a1 1 0 0 1-1.41-1.41l2.52-2.52a5.98 5.98 0 0 1 8.45 8.46l-2.52 2.51a1 1 0 0 1-1.41 0ZM7.68 9.29a1 1 0 0 1 0 1.41l-2.52 2.51a3.98 3.98 0 1 0 5.63 5.63l2.51-2.52a1 1 0 0 1 1.42 1.42l-2.52 2.51a5.98 5.98 0 0 1-8.45-8.45l2.51-2.51a1 1 0 0 1 1.42 0Z"] {
+  color: #e8474a;
+}
+
+/* MARK UNREAD */
+[aria-label="Mark Unread"] [d="M18 17h-1.24a3 3 0 1 1 .26 4.25 1 1 0 1 0-1.33 1.5A4.98 4.98 0 0 0 24 19a5 5 0 0 0-8-4 1 1 0 0 0-2 0v3a1 1 0 0 0 1 1h3a1 1 0 1 0 0-2Z"] {
+  color: #34A853;
+}
+
+/* PIN */
+[aria-label="Pin Message"] .icon_f84418 { display: none; }
+[aria-label="Pin Message"]::before { /* handle */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%234285F4' d='M19.38 11.38a3 3 0 0 0 4.24 0l.03-.03a.5.5 0 0 0 0-.7L13.35.35a.5.5 0 0 0-.7 0l-.03.03a3 3 0 0 0 0 4.24L13 5l-2.92 2.92-3.65-.34a2 2 0 0 0-1.6.58l-.62.63a1 1 0 0 0 0 1.42l9.58 9.58a1 1 0 0 0 1.42 0l.63-.63a2 2 0 0 0 .58-1.6l-.34-3.64L19 11Z'/%3E%3C/svg%3E");
+}
+[aria-label="Pin Message"]::after { /* point */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.07 17.07a.5.5 0 0 1-.08.77l-5.15 3.43a.5.5 0 0 1-.63-.06l-.42-.42a.5.5 0 0 1-.06-.63L6.16 15a.5.5 0 0 1 .77-.08l2.14 2.14Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.07 17.07a.5.5 0 0 1-.08.77l-5.15 3.43a.5.5 0 0 1-.63-.06l-.42-.42a.5.5 0 0 1-.06-.63L6.16 15a.5.5 0 0 1 .77-.08l2.14 2.14Z'/%3E%3C/svg%3E");
+}
+
+/* CREATE THREAD */
+[aria-label="Create Thread"] .icon_f84418 { display: none; }
+[aria-label="Create Thread"]::before { /* spool */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.81a1 1 0 0 1 0-1.41l.36-.36a1 1 0 0 1 1.41 0l9.2 9.2a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.3.13l-9.54-6.72a1 1 0 0 1-.08-1.58l1-1L12 2.8ZM12 21.2a1 1 0 0 1 0 1.41l-.35.35a1 1 0 0 1-1.41 0l-9.2-9.19a1 1 0 0 1 0-1.41l.7-.7a1 1 0 0 1 1.3-.12l9.54 6.72a1 1 0 0 1 .07 1.58l-1 1 .35.36Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.81a1 1 0 0 1 0-1.41l.36-.36a1 1 0 0 1 1.41 0l9.2 9.2a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.3.13l-9.54-6.72a1 1 0 0 1-.08-1.58l1-1L12 2.8ZM12 21.2a1 1 0 0 1 0 1.41l-.35.35a1 1 0 0 1-1.41 0l-9.2-9.19a1 1 0 0 1 0-1.41l.7-.7a1 1 0 0 1 1.3-.12l9.54 6.72a1 1 0 0 1 .07 1.58l-1 1 .35.36Z'/%3E%3C/svg%3E");
+}
+[aria-label="Create Thread"]::after { /* thread */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23f47aba' d='M15.66 16.8a1 1 0 0 1-1.38.28l-8.49-5.66A1 1 0 1 1 6.9 9.76l8.49 5.65a1 1 0 0 1 .27 1.39ZM17.1 14.25a1 1 0 1 0 1.11-1.66L9.73 6.93a1 1 0 0 0-1.11 1.66l8.49 5.66Z'/%3E%3C/svg%3E");
+}
+
+/* HIDE MEDIA */
+[aria-label="Hide Media"] .vc-image-invisible { display: none; }
+[aria-label="Hide Media"]::before { /* border */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='m21 18.15-2-2V5H7.85l-2-2H19q.825 0 1.413.587Q21 4.175 21 5Zm-3.8 1.85L18.2 21H5q-.825 0-1.413-.587Q3 19.825 3 19V5.8L5 7.825V19h11.175Z'/%3E%3C/svg%3E");
+}
+[aria-label="Hide Media"]::after { /* slash & mountains */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%2334A853' d='m21 18.15M6 17l3-4 2.25 3 .825-1.1L14 17l-4 0Z'/%3E%3Cpath fill='%23e8474a' d='M21 18.15Zm-1.2 4.45L1.4 4.2l1.4-1.4 18.4 18.4Z'/%3E%3C/svg%3E");
+}
+
+/* TRANSLATE */
+[aria-label="Translate"] .vc-trans-icon { display: none; }
+[aria-label="Translate"]::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 96 960 960' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%234285F4' d='M160 856l-55-55 204-204q-38-44-67.5-88.5T190 416h87q17 33 37.5 62.5T361 539q45-47 75-97.5T487 336H40v-80h280v-80h80v80h280v80H567q-22 69-58.5 135.5T419 598l98 99-30 81-127-122-200 200Z'/%3E%3Cpath fill='%2334A853' d='M475 976l181-480h82l186 480h-87l-41-126H604l-47 126h-82ZM626 780h142l-70-194h-2l-70 194Z'/%3E%3C/svg%3E");
+}
+
+/* EDIT MESSAGE */
+[aria-label="Edit"] .icon_f84418 { display: none; }
+[aria-label="Edit"]::before { /* eraser */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #f47aba;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='m 13.96 5.46 l 4.58 4.58 a 1 1 0 0 0 1.42 0 l 1.38 -1.38 a 2 2 0 0 0 0 -2.82 l -3.18 -3.18 a 2 2 0 0 0 -2.82 0 l -1.38 1.38 a 1 1 0 0 0 0 1.42 Z'/%3E%3C/svg%3E");
+}
+[aria-label="Edit"]::after { /* body */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: #E3AC4D;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='m 13.96 5.46 Z M 2.11 20.16 l 0.73 -4.22 a 3 3 0 0 1 0.83 -1.61 l 7.87 -7.87 a 1 1 0 0 1 1.42 0 l 4.58 4.58 a 1 1 0 0 1 0 1.42 l -7.87 7.87 a 3 3 0 0 1 -1.6 0.83 l -4.23 0.73 a 1.5 1.5 0 0 1 -1.73 -1.73 Z'/%3E%3C/svg%3E");
+}
+
+/* DELETE MESSAGE */
+[aria-label="Delete"] { color: #ed5557 !important; }
+[aria-label="Delete"] [d="M14.25 1c.41 0 .75.34.75.75V3h5.25c.41 0 .75.34.75.75v.5c0 .41-.34.75-.75.75H3.75A.75.75 0 0 1 3 4.25v-.5c0-.41.34-.75.75-.75H9V1.75c0-.41.34-.75.75-.75h4.5Z"] {
+  color: var(--interactive-icon-default);
+}
+
+/* ------------- */
+/* LOWER HEADER */
+/* ------------- */
+
+/* [aria-label="Threads"] .icon__9293f { color: #e84393; } */
+/* [aria-label="Notification Settings"] .icon__9293f { color: #e84393; } */
+/* [aria-label="Pinned Messages"] .icon__9293f { color: #e84393; } */
+/* [aria-label="Hide Member List"] .icon__9293f { color: #e84393; } */
+
+/* PINS */
+[aria-label="Pinned Messages"] .icon__9293f,
+[aria-label="Pinned Messages"]:has(.iconBadge__9293f)::after { display: none; } /* new pins */
+[aria-label="Pinned Messages"]::before { /* handle */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%234285F4' d='M19.38 11.38a3 3 0 0 0 4.24 0l.03-.03a.5.5 0 0 0 0-.7L13.35.35a.5.5 0 0 0-.7 0l-.03.03a3 3 0 0 0 0 4.24L13 5l-2.92 2.92-3.65-.34a2 2 0 0 0-1.6.58l-.62.63a1 1 0 0 0 0 1.42l9.58 9.58a1 1 0 0 0 1.42 0l.63-.63a2 2 0 0 0 .58-1.6l-.34-3.64L19 11Z'/%3E%3C/svg%3E");
+}
+[aria-label="Pinned Messages"]::after { /* point */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: var(--icon-muted);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.07 17.07a.5.5 0 0 1-.08.77l-5.15 3.43a.5.5 0 0 1-.63-.06l-.42-.42a.5.5 0 0 1-.06-.63L6.16 15a.5.5 0 0 1 .77-.08l2.14 2.14Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.07 17.07a.5.5 0 0 1-.08.77l-5.15 3.43a.5.5 0 0 1-.63-.06l-.42-.42a.5.5 0 0 1-.06-.63L6.16 15a.5.5 0 0 1 .77-.08l2.14 2.14Z'/%3E%3C/svg%3E");
+}
+[aria-label="Pinned Messages"]:has(.iconBadge__9293f)::before { mask: url(#svg-mask-header-bar-badge-bottom); } /* new pins */
+[aria-label="Pinned Messages"] :is(svg, foreignObject) { display: none !important; }
+
+/* THREADS */
+[aria-label="Threads"] .icon__9293f { display: none; }
+[aria-label="Threads"]::after { /* spool */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: var(--icon-muted);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.81a1 1 0 0 1 0-1.41l.36-.36a1 1 0 0 1 1.41 0l9.2 9.2a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.3.13l-9.54-6.72a1 1 0 0 1-.08-1.58l1-1L12 2.8ZM12 21.2a1 1 0 0 1 0 1.41l-.35.35a1 1 0 0 1-1.41 0l-9.2-9.19a1 1 0 0 1 0-1.41l.7-.7a1 1 0 0 1 1.3-.12l9.54 6.72a1 1 0 0 1 .07 1.58l-1 1 .35.36Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.81a1 1 0 0 1 0-1.41l.36-.36a1 1 0 0 1 1.41 0l9.2 9.2a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.3.13l-9.54-6.72a1 1 0 0 1-.08-1.58l1-1L12 2.8ZM12 21.2a1 1 0 0 1 0 1.41l-.35.35a1 1 0 0 1-1.41 0l-9.2-9.19a1 1 0 0 1 0-1.41l.7-.7a1 1 0 0 1 1.3-.12l9.54 6.72a1 1 0 0 1 .07 1.58l-1 1 .35.36Z'/%3E%3C/svg%3E");
+}
+[aria-label="Threads"]::before { /* thread */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #f47aba;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='MM15.66 16.8a1 1 0 0 1-1.38.28l-8.49-5.66A1 1 0 1 1 6.9 9.76l8.49 5.65a1 1 0 0 1 .27 1.39ZM17.1 14.25a1 1 0 1 0 1.11-1.66L9.73 6.93a1 1 0 0 0-1.11 1.66l8.49 5.66Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M15.66 16.8a1 1 0 0 1-1.38.28l-8.49-5.66A1 1 0 1 1 6.9 9.76l8.49 5.65a1 1 0 0 1 .27 1.39ZM17.1 14.25a1 1 0 1 0 1.11-1.66L9.73 6.93a1 1 0 0 0-1.11 1.66l8.49 5.66Z'/%3E%3C/svg%3E");
+}
+
+/* NOTIFICATION SETTINGS */
+[aria-label="Notification Settings"] .icon__9293f { display: none; }
+[aria-label="Notification Settings"]::before { /* shell */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #E3AC4D;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.7 2.89c.18-.07.32-.24.37-.43a2 2 0 0 1 3.86 0c.05.2.19.36.38.43A7 7 0 0 1 19 9.5v2.09c0 .12.05.24.13.33l1.1 1.22a3 3 0 0 1 .77 2.01v.28c0 .67-.34 1.29-.95 1.56-1.31.6-4 1.51-8.05 1.51-4.05 0-6.74-.91-8.05-1.5-.61-.28-.95-.9-.95-1.57v-.28a3 3 0 0 1 .77-2l1.1-1.23a.5.5 0 0 0 .13-.33V9.5A7 7 0 0 1 9.7 2.89Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.7 2.89c.18-.07.32-.24.37-.43a2 2 0 0 1 3.86 0c.05.2.19.36.38.43A7 7 0 0 1 19 9.5v2.09c0 .12.05.24.13.33l1.1 1.22a3 3 0 0 1 .77 2.01v.28c0 .67-.34 1.29-.95 1.56-1.31.6-4 1.51-8.05 1.51-4.05 0-6.74-.91-8.05-1.5-.61-.28-.95-.9-.95-1.57v-.28a3 3 0 0 1 .77-2l1.1-1.23a.5.5 0 0 0 .13-.33V9.5A7 7 0 0 1 9.7 2.89Z'/%3E%3C/svg%3E");
+}
+[aria-label="Notification Settings"]::after { /* bell */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: var(--icon-muted);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.18 20a.16.16 0 0 0-.18.16 3 3 0 1 0 6 0c0-.1-.09-.17-.18-.16a24.86 24.86 0 0 1-5.64 0Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M9.18 20a.16.16 0 0 0-.18.16 3 3 0 1 0 6 0c0-.1-.09-.17-.18-.16a24.86 24.86 0 0 1-5.64 0Z'/%3E%3C/svg%3E");
+}
+
+/* SHOW/HIDE MEMBER LIST */
+/* [aria-label="Show Member List"] .icon__9293f, */
+/* [aria-label="Hide Member List"] .icon__9293f { display: none; } */
+[aria-label="Show Member List"]::after,
+[aria-label="Hide Member List"]::after { /* front */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: #34A853;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M12.5 9a3 3 0 1 1-6 0a3 3 0 0 1 6 0ZM2 20.5a7.5 7.5 0 0 1 15 0c0 .83-.67 1.5-1.5 1.5a.2 .2 0 0 1-.2-.16c-.2-.96-.56-1.87-.88-2.54c-.1-.23-.42-.15-.42 .1v2.1a.5 .5 0 0 1-.5 .5h-8a.5 .5 0 0 1-.5-.5v-2.1c0-.25-.31-.33-.42-.1c-.32 .67-.67 1.58-.88 2.54a.2 .2 0 0 1-.2 .16A1.5 1.5 0 0 1 2 20.5Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M12.5 9a3 3 0 1 1-6 0a3 3 0 0 1 6 0ZM2 20.5a7.5 7.5 0 0 1 15 0c0 .83-.67 1.5-1.5 1.5a.2 .2 0 0 1-.2-.16c-.2-.96-.56-1.87-.88-2.54c-.1-.23-.42-.15-.42 .1v2.1a.5 .5 0 0 1-.5 .5h-8a.5 .5 0 0 1-.5-.5v-2.1c0-.25-.31-.33-.42-.1c-.32 .67-.67 1.58-.88 2.54a.2 .2 0 0 1-.2 .16A1.5 1.5 0 0 1 2 20.5Z'/%3E%3C/svg%3E");
+}
+[aria-label="Show Member List"]::before,
+[aria-label="Hide Member List"]::before { /* back */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #4285F4;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 14.5 8 a 3 3 0 1 0 -2.7 -4.3 c -0.2 0.4 0.06 0.86 0.44 1.12 a 5 5 0 0 1 2.14 3.08 c 0.01 0.06 0.06 0.1 0.12 0.1 Z M 18.44 17.27 c 0.15 0.43 0.54 0.73 1 0.73 h 1.06 c 0.83 0 1.5 -0.67 1.5 -1.5 a 7.5 7.5 0 0 0 -6.5 -7.43 c -0.55 -0.08 -0.99 0.38 -1.1 0.92 c -0.06 0.3 -0.15 0.6 -0.26 0.87 c -0.23 0.58 -0.05 1.3 0.47 1.63 a 9.53 9.53 0 0 1 3.83 4.78 Z Z Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 14.5 8 a 3 3 0 1 0 -2.7 -4.3 c -0.2 0.4 0.06 0.86 0.44 1.12 a 5 5 0 0 1 2.14 3.08 c 0.01 0.06 0.06 0.1 0.12 0.1 Z M 18.44 17.27 c 0.15 0.43 0.54 0.73 1 0.73 h 1.06 c 0.83 0 1.5 -0.67 1.5 -1.5 a 7.5 7.5 0 0 0 -6.5 -7.43 c -0.55 -0.08 -0.99 0.38 -1.1 0.92 c -0.06 0.3 -0.15 0.6 -0.26 0.87 c -0.23 0.58 -0.05 1.3 0.47 1.63 a 9.53 9.53 0 0 1 3.83 4.78 Z Z Z'/%3E%3C/svg%3E");
+}
+[aria-label="Show Member List"] .icon__9293f,
+[aria-label="Hide Member List"] .icon__9293f { /* indicator */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: var(--icon-muted);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 22 5 a 2.01 2.01 0 1 1 -1 0 a 2.01 2.01 0 0 1 1 0 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 22 5 a 2.01 2.01 0 1 1 -1 0 a 2.01 2.01 0 0 1 1 0 Z'/%3E%3C/svg%3E");
+}
+
+/* ---------------- */
+/* LOWER HEADER DMS */
+/* ---------------- */
+
+/* [aria-label="Start Voice Call"] .icon__9293f { color: #e84393; } */
+[aria-label="Start Video Call"] .icon__9293f { color: #6b3daf; }
+/* [aria-label="Pinned Messages"] .icon__9293f { color: #e84393; } */
+/* [aria-label="Add Friends to DM"] .icon__9293f { color: #e84393; } */
+/* [aria-label="Show User Profile"] .icon__9293f { color: #e84393; } */
+
+/* START VOICE CALL */
+[aria-label="Start Voice Call"] .icon__9293f { display: none; }
+[aria-label="Start Voice Call"]::before { /* phone */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #34A853;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 2 7.4 A 5.4 5.4 0 0 1 7.4 2 c 0.36 0 0.7 0.22 0.83 0.55 l 1.93 4.64 a 1 1 0 0 1 -0.43 1.25 L 7 10 a 8.52 8.52 0 0 0 7 7 l 1.12 -2.24 a 1 1 0 0 1 1.19 -0.51 l 5.06 1.56 c 0.38 0.11 0.63 0.46 0.63 0.85 C 22 19.6 19.6 22 16.66 22 h -0.37 C 8.39 22 2 15.6 2 7.71 V 7.4'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 2 7.4 A 5.4 5.4 0 0 1 7.4 2 c 0.36 0 0.7 0.22 0.83 0.55 l 1.93 4.64 a 1 1 0 0 1 -0.43 1.25 L 7 10 a 8.52 8.52 0 0 0 7 7 l 1.12 -2.24 a 1 1 0 0 1 1.19 -0.51 l 5.06 1.56 c 0.38 0.11 0.63 0.46 0.63 0.85 C 22 19.6 19.6 22 16.66 22 h -0.37 C 8.39 22 2 15.6 2 7.71 V 7.4'/%3E%3C/svg%3E");
+}
+[aria-label="Start Voice Call"]::after { /* waves */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: var(--icon-muted);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M13 7a1 1 0 011-1 4 4 0 014 4 1 1 0 11-2 0 2 2 0 00-2-2 1 1 0 01-1-1ZM13 3a1 1 0 011-1 8 8 0 018 8 1 1 0 11-2 0 6 6 0 00-6-6 1 1 0 01-1-1Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M13 7a1 1 0 011-1 4 4 0 014 4 1 1 0 11-2 0 2 2 0 00-2-2 1 1 0 01-1-1ZM13 3a1 1 0 011-1 8 8 0 018 8 1 1 0 11-2 0 6 6 0 00-6-6 1 1 0 01-1-1Z'/%3E%3C/svg%3E");
+}
+
+/* ADD FRIENDS TO DM */
+[aria-label="Add Friends to DM"]::after { /* front */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: #34A853;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 0 0 M 15.19 15.61 c 0.13 0.16 0.02 0.39 -0.19 0.39 a 3 3 0 0 0 -1.52 5.59 c 0.2 0.12 0.26 0.41 0.02 0.41 h -8 a 0.5 0.5 0 0 1 -0.5 -0.5 v -2.1 c 0 -0.25 -0.31 -0.33 -0.42 -0.1 c -0.32 0.67 -0.67 1.58 -0.88 2.54 a 0.2 0.2 0 0 1 -0.2 0.16 A 1.5 1.5 0 0 1 2 20.5 a 7.5 7.5 0 0 1 13.19 -4.89 Z M 9.5 12 a 3 3 0 1 0 0 -6 a 3 3 0 0 0 0 6 Z M 15.5 22 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M 0 0 M 15.19 15.61 c 0.13 0.16 0.02 0.39 -0.19 0.39 a 3 3 0 0 0 -1.52 5.59 c 0.2 0.12 0.26 0.41 0.02 0.41 h -8 a 0.5 0.5 0 0 1 -0.5 -0.5 v -2.1 c 0 -0.25 -0.31 -0.33 -0.42 -0.1 c -0.32 0.67 -0.67 1.58 -0.88 2.54 a 0.2 0.2 0 0 1 -0.2 0.16 A 1.5 1.5 0 0 1 2 20.5 a 7.5 7.5 0 0 1 13.19 -4.89 Z M 9.5 12 a 3 3 0 1 0 0 -6 a 3 3 0 0 0 0 6 Z M 15.5 22 Z'/%3E%3C/svg%3E");
+}
+[aria-label="Add Friends to DM"]::before { /* back */
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #4285F4;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M14.5 8a3 3 0 10-2.7-4.3c-.2.4.06.86.44 1.12a5 5 0 012.14 3.08c.01.06.06.1.12.1M16.62 13.17c-.22.29-.65.37-.92.14-.34-.3-.7-.57-1.09-.82-.52-.33-.7-1.05-.47-1.63.11-.27.2-.57.26-.87.11-.54.55-1 1.1-.92 1.6.2 3.04.92 4.15 1.98.3.27-.25.95-.65.95a3 3 0 00-2.38 1.17'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M14.5 8a3 3 0 10-2.7-4.3c-.2.4.06.86.44 1.12a5 5 0 012.14 3.08c.01.06.06.1.12.1M16.62 13.17c-.22.29-.65.37-.92.14-.34-.3-.7-.57-1.09-.82-.52-.33-.7-1.05-.47-1.63.11-.27.2-.57.26-.87.11-.54.55-1 1.1-.92 1.6.2 3.04.92 4.15 1.98.3.27-.25.95-.65.95a3 3 0 00-2.38 1.17'/%3E%3C/svg%3E");
+}
+[aria-label="Add Friends to DM"] .icon__9293f { /* indicator */
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: var(--icon-muted);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M19 14a1 1 0 0 1 1 1v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 0 1-2 0v-3h-3a1 1 0 1 1 0-2h3v-3a1 1 0 0 1 1-1Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M19 14a1 1 0 0 1 1 1v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 0 1-2 0v-3h-3a1 1 0 1 1 0-2h3v-3a1 1 0 0 1 1-1Z'/%3E%3C/svg%3E");
+}
+
+/* SHOW USER PROFILE */
+[aria-label="Show User Profile"] .icon__9293f path:first-child { color: #E3AC4D; }
+[aria-label="Hide User Profile"] .icon__9293f path:first-child { color: #E3AC4D; }
+[aria-label="Show User Profile (Unavailable)"] .icon__9293f path:first-child { color: #E3AC4D; }
+
+/* Animation + Color Fix for Message Hover */
+[aria-label="Pin Message"],
+[aria-label="Create Thread"],
+[aria-label="Hide Media"],
+[aria-label="Translate"],
+[aria-label="Edit"]
+{ transition: transform 0.05s ease-out !important; color: var(--interactive-icon-default); }
+[aria-label="Pin Message"]:hover,
+[aria-label="Create Thread"]:hover,
+[aria-label="Hide Media"]:hover,
+[aria-label="Translate"]:hover,
+[aria-label="Edit"]:hover
+{ transform: scale(1.1) !important; color: var(--interactive-icon-hover); }
+
+/* Color Fix For Lower Header Bar */
+[aria-label="Threads"]:hover::after,
+[aria-label="Notification Settings"]:hover::after,
+[aria-label="Start Voice Call"]:hover::after,
+[aria-label="Show Member List"]:hover .icon__9293f,
+[aria-label="Pinned Messages"]:hover::after
+{ background-color: var(--icon-subtle); }
+
+[aria-label="Threads"].selected__9293f::after,
+[aria-label="Notification Settings"].selected__9293f::after,
+[aria-label="Pinned Messages"].selected__9293f::after,
+[aria-label="Hide Member List"].selected__9293f .icon__9293f
+{ background-color: var(--icon-strong); }
+
+/* Top Bar Icons */
+
+/* window-controls.css */
+body {
+    --window-control-size: 14px;
+}
+
+@property --custom-window-controls {
+    syntax: 'off | on';
+    inherits: false;
+    initial-value: on;
+}
+
+@container body style(--custom-window-controls: on) {
+    .winButtons_c38106 {
+        gap: 0;
+        padding-right: calc(var(--gap) - (var(--window-control-size) / 2) + 1px);
+        
+    }
+    .winButtons_c38106::before {
+        margin-right: calc(var(--custom-app-top-bar-height) / 4);
+    }
+    .winButton_c38106 > svg {
+        display: none;
+    }
+    .winButton_c38106 {
+        background: none !important;
+        width: calc(var(--window-control-size) * 2);
+        height: var(--custom-app-top-bar-height);
+    }
+    .winButton_c38106::after {
+        display: block;
+        content: '';
+        height: var(--window-control-size);
+        width: var(--window-control-size);
+        border-radius: 50%;
+        transition: box-shadow 0.3s ease;
+        display: none !important;
+    }
+
+.winButton_c38106 {
+    position: relative !important;
+    background-color: transparent !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+.winButtons_c38106 {
+    gap: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.winButton_c38106 svg {
+    opacity: 0 !important;
+    display: none !important;
+}
+
+.winButton_c38106::before {
+    content: "" !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: bold !important;
+    width: 14px !important;
+    height: 14px !important;
+    transition: color 0.3s ease, text-shadow 0.7s ease, transform 0.7s ease-in-out, filter 0.7s ease !important;
+    position: absolute !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.winButtonClose_c38106::before {
+    content: "✖" !important;
+    color: #d83a42 !important;
+    top: 53% !important;
+    font-size: 20px !important;
+    left: 50% !important;
+    font-weight: normal !important;
+    text-shadow: 0 0 3px #d83a42 !important;
+    will-change: transform !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.winButtonClose_c38106:hover::before {
+    color: #d83a42 !important;
+    text-shadow: 
+    0 0 5px #ff3b44cc,
+    0 0 10px #ff3b4499,
+    0 0 15px #ff3b4480,
+    0 0 20px #ff3b4466,
+    0 0 25px #ff3b444d,
+    0 0 30px #ff3b4433 !important;
+    filter: brightness(1.1) !important;
+    transform: translate(-50%, -50%) rotate(180deg) !important; 
+}
+
+.winButtonMinMax_c38106:nth-child(1)::before {
+    content: "⚋" !important;
+    color: #faa61a !important;
+    top: 55% !important;
+    font-size: 20px !important;
+    left: 50% !important;
+    -webkit-text-stroke: 0.5px #faa61a !important; 
+    text-rendering: geometricPrecision !important;
+    will-change: transform !important; 
+    text-shadow: 0 0 3px #faa61a !important; 
+}
+
+.winButtonMinMax_c38106:nth-child(1):hover::before {
+    color: #faa61a !important;
+    text-shadow: 
+        0 0 5px #faa61a,
+        0 0 10px #b3760f,
+        0 0 15px #c98105,
+        0 0 20px #b17307,
+        0 0 25px #996606b6,
+        0 0 30px #9663059a !important;
+    filter: brightness(1.2) !important;
+    transform: translate(-50%, -50%) rotate(180deg) !important;
+}
+
+.winButtonMinMax_c38106:nth-child(2)::before {
+    content: "⛶" !important;
+    color: #23a55a !important; 
+    top: 55% !important;
+    font-size: 20px !important;
+    left: 50% !important;
+    -webkit-text-stroke: 0.5px #23a55a !important; 
+    text-rendering: geometricPrecision !important;
+    will-change: transform !important; 
+    text-shadow: 0 0 3px #23a55a !important; 
+}
+
+.winButtonMinMax_c38106:nth-child(2):hover::before {
+    color: #2ecc71 !important;
+    text-shadow: 
+        0 0 5px #2ecc71cc,
+        0 0 10px #2ecc7199,
+        0 0 15px #2ecc7180,
+        0 0 20px #2ecc7166,
+        0 0 25px #2ecc714d,
+        0 0 30px #2ecc7133 !important;
+    filter: brightness(1.2) !important;
+    transform: translate(-50%, -50%) rotate(180deg) !important;
+}
+
+@container body style(--custom-window-controls: off) and style(--top-bar-button-position: titlebar) {
+    .visual-refresh .winButton_c38106 {
+        border-radius: 0 !important;
+    }
+    
+    .visual-refresh .winButtons_c38106 {
+        gap: 0 !important;
+    }
+}
+
+/* Transparent Call Background */ 
+.visual-refresh .root_bfe55a {
+    background-color: transparent;
+}
+}
